@@ -1,4 +1,15 @@
 package com.example.wangrui.wanandroidkotlin
 
-class Interface {
+/**
+ * kotlin封装一个接口类
+ */
+
+object Interface {
+    //baseUrl
+    const val BASE_URL = "https://www.wanandroid.com"
+
+    const val HOME_BANNER = "/banner/json"
+
+
+
 }
