@@ -10,6 +10,8 @@ object Interface {
 
     const val HOME_BANNER = "/banner/json"
 
+    const val HOME_LIST = "article/list/0/json"
+
 
 
 }

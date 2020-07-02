@@ -12,8 +12,10 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.example.wangrui.wanandroidkotlin.GetRequest
 import com.example.wangrui.wanandroidkotlin.R
+import com.example.wangrui.wanandroidkotlin.adapter.MainRecycleAdapter
 import com.example.wangrui.wanandroidkotlin.bean.BannerBean
 import com.example.wangrui.wanandroidkotlin.bean.Data
+import com.example.wangrui.wanandroidkotlin.bean.HomeListBean
 import com.example.wangrui.wanandroidkotlin.utils.RetrofitUtil
 import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
@@ -49,12 +51,22 @@ class HomeFragment : Fragment() {
             setBannerTitles(title)
             start()
         }
-
-
     }
 
-    private fun initRecycleView() {
-        // main_recycle.adapter =
+    private fun getDate() {
+        val call = RetrofitUtil.initRetrofit(GetRequest::class.java).getHomeList()
+        call.enqueue(object : retrofit2.Callback<HomeListBean> {
+            override fun onResponse(call: Call<HomeListBean>, response: Response<HomeListBean>) {
+            }
+
+            override fun onFailure(call: Call<HomeListBean>, t: Throwable) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
+    }
+
+    private fun initRecycleView(list : Array<Any>) {
+        home_recycle.adapter = context?.let { MainRecycleAdapter(it,list) }
     }
 
     private fun getBannerDate() {
@@ -81,13 +93,6 @@ class HomeFragment : Fragment() {
         })
     }
 
-//    inner class GlideImageLoader : ImageLoader() {
-//        override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
-//            activity?.let { imageView?.let { it1 -> Glide.with(it).load(path).into(it1) } }
-//        }
-//
-//    }
-
     class GlideImageLoader : ImageLoader() {
         override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
             if (context != null) {
@@ -96,6 +101,5 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-
     }
 }
